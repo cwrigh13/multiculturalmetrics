@@ -1,0 +1,358 @@
+/* Import Work Sans font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Custom Properties for consistent color usage */
+:root {
+  --color-light-cyan: #9AD3D4;
+  --color-teal: #00A5A5;
+  --color-very-light-cyan: #C8E6E6;
+  --color-light-blue-green: #5DBFC0;
+  --color-dark-teal: #007582;
+  --color-lightest-grey: #E2F2F2;
+  
+  /* Spacing variables */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  
+  /* Border radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Base element styling */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-dark-teal);
+  background-color: #fafafa;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography improvements */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0;
+  color: var(--color-dark-teal);
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+h5 {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+h6 {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Link styling */
+a {
+  color: var(--color-light-blue-green);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+  color: var(--color-teal);
+  text-decoration: underline;
+}
+
+/* Button base styling */
+button {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border: none;
+  outline: none;
+}
+
+button:focus {
+  outline: 2px solid var(--color-light-blue-green);
+  outline-offset: 2px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Input and form element styling */
+input, textarea, select {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 400;
+  transition: all 0.2s ease-in-out;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: 2px solid var(--color-light-blue-green);
+  outline-offset: 1px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-lightest-grey);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-light-cyan);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-teal);
+}
+
+/* App container styling */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Utility classes for consistent spacing */
+@layer utilities {
+  .border-default {
+    border: 1px solid #e5e7eb;
+  }
+  
+  .border-accent {
+    border: 2px solid var(--color-light-cyan);
+  }
+  
+  .shadow-custom {
+    box-shadow: var(--shadow-md);
+  }
+  
+  .shadow-custom-lg {
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .transition-default {
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .focus-ring {
+    @apply focus:outline-none;
+  }
+  
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Component-specific base styles */
+@layer components {
+  .card {
+    @apply bg-white rounded-lg border border-gray-200 p-6 shadow-sm transition-default;
+  }
+  
+  .card:hover {
+    @apply shadow-md border-lightCyan;
+  }
+  
+  .btn-primary {
+    @apply bg-lightBlueGreen text-white px-6 py-3 rounded-lg font-semibold hover:bg-teal focus-ring disabled:bg-gray-400 disabled:cursor-not-allowed transition-default;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-darkTeal border-2 border-lightCyan px-6 py-3 rounded-lg font-semibold hover:bg-lightCyan hover:text-white focus-ring transition-default;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 transition-default;
+  }
+  
+  .section-header {
+    @apply text-2xl font-semibold text-darkTeal mb-6 text-balance;
+  }
+  
+  .subsection-header {
+    @apply text-lg font-semibold text-darkTeal mb-4;
+  }
+  
+  .metric-card {
+    @apply bg-white rounded-lg border border-gray-200 p-6 shadow-sm hover:shadow-md hover:border-lightCyan transition-default;
+  }
+  
+  .status-indicator {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  }
+  
+  .status-on-track {
+    @apply bg-green-100 text-green-800;
+  }
+  
+  .status-needs-attention {
+    @apply bg-yellow-100 text-yellow-800;
+  }
+  
+  .status-off-track {
+    @apply bg-red-100 text-red-800;
+  }
+  
+  .status-excellent {
+    @apply bg-blue-100 text-blue-800;
+  }
+  
+  .progress-bar {
+    @apply w-full bg-gray-200 rounded-full overflow-hidden;
+  }
+  
+  .progress-fill {
+    @apply h-full transition-all duration-700 ease-out;
+  }
+  
+  .tooltip-base {
+    @apply absolute z-50 px-3 py-2 text-sm text-white bg-gray-900 rounded-lg shadow-lg opacity-0 pointer-events-none transition-opacity duration-200;
+  }
+  
+  .tooltip-visible {
+    @apply opacity-100 pointer-events-auto;
+  }
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s infinite;
+}
+
+/* Print styles */
+@media print {
+  body {
+    font-size: 12pt;
+    color: black;
+    background: white;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+  
+  .card {
+    border: 1px solid black;
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+}
+
+/* Responsive typography */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.75rem;
+  }
+  
+  h3 {
+    font-size: 1.375rem;
+  }
+}
