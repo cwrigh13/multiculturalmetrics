@@ -11,6 +11,7 @@ const SLNSWBenchmarks = ({ quantitativeBenchmarks, qualitativeBenchmarks, benchm
   
   // Find LOTE Collection benchmarks for grouped display
   const loteBenchmarks = quantitativeBenchmarks?.filter(b => b.id.startsWith("lote-collection")) || [];
+  console.log("LOTE Benchmarks found:", loteBenchmarks);
   
   // Find Specialist Staffing benchmark for prominent display
   const specialistStaffingBenchmark = quantitativeBenchmarks?.find(b => b.id === "specialist-staffing");
@@ -150,6 +151,7 @@ const SLNSWBenchmarks = ({ quantitativeBenchmarks, qualitativeBenchmarks, benchm
   };
 
   const LOTECollectionDisplay = ({ benchmarks }) => {
+    console.log("LOTECollectionDisplay called with:", benchmarks);
     if (!benchmarks || benchmarks.length === 0) return null;
 
     // Calculate overall status based on sub-items
@@ -1034,10 +1036,6 @@ const SLNSWBenchmarks = ({ quantitativeBenchmarks, qualitativeBenchmarks, benchm
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
       
       <div className="mb-8 text-center">
-        <h3 className="text-2xl font-bold text-darkTeal mb-2">SLNSW Benchmarks Assessment</h3>
-        <p className="text-sm text-teal opacity-75">
-          Comprehensive evaluation against State Library of NSW multicultural service standards
-        </p>
       </div>
 
       {/* Benchmark Health Summary */}
@@ -1050,9 +1048,6 @@ const SLNSWBenchmarks = ({ quantitativeBenchmarks, qualitativeBenchmarks, benchm
       {/* ESL Collection Display */}
       <ESLCollectionDisplay benchmark={eslBenchmark} />
       
-      {/* LOTE Collection Display */}
-      <LOTECollectionDisplay benchmarks={loteBenchmarks} />
-
       {/* Specialist Staffing Display */}
       <SpecialistStaffingDisplay benchmark={specialistStaffingBenchmark} />
       
@@ -1067,6 +1062,10 @@ const SLNSWBenchmarks = ({ quantitativeBenchmarks, qualitativeBenchmarks, benchm
         {/* Other Quantitative Benchmarks */}
         <div>
           <h4 className="text-lg font-semibold text-darkTeal mb-4">Other Quantitative Benchmarks</h4>
+          
+          {/* LOTE Collection Display */}
+          <LOTECollectionDisplay benchmarks={loteBenchmarks} />
+          
           <div className="space-y-4">
             {quantitativeBenchmarks
               ?.filter(b => b.id !== "esl-collection" && !b.id.startsWith("lote-collection") && b.id !== "specialist-staffing" && b.id !== "research-frequency")

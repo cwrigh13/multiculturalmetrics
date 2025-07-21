@@ -261,7 +261,8 @@ export const suburbs = [
   "Kogarah", 
   "Penshurst",
   "South Hurstville",
-  "Oatley"
+  "Oatley",
+  "Home Library Service"
 ];
 
 // Time period options
@@ -559,10 +560,32 @@ export const getFilteredPrograms = (programs, filters) => {
       }
     }
     
-    // Special filtering for Chinese community - only show Hurstville and Kogarah
+    // Special filtering for Chinese community - only show Hurstville, Kogarah, and Home Library Service
     if (filters.community === "Chinese" || program.community === "Chinese") {
-      const allowedSuburbsForChinese = ["Hurstville", "Kogarah"];
+      const allowedSuburbsForChinese = ["Hurstville", "Kogarah", "Home Library Service"];
       if (!allowedSuburbsForChinese.includes(program.suburb)) {
+        return false;
+      }
+    }
+    
+    // Filter by collection type
+    if (filters.collection && filters.collection !== "All") {
+      // For now, we'll simulate collection filtering based on program type
+      // In a real implementation, this would filter based on actual collection data
+      const collectionTypeMapping = {
+        "Adult Fiction": ["Cultural Event", "Language Support"],
+        "Adult Non Fiction": ["ESL Class", "Digital Literacy"],
+        "Adult Serials": ["Cultural Celebration"],
+        "Junior Fiction": ["Language Support"],
+        "Junior Non Fiction": ["ESL Class"],
+        "Picture Book": ["Language Support"],
+        "DVD": ["Cultural Event", "Cultural Celebration"],
+        "Junior DVD": ["Language Support"],
+        "eResources": ["Digital Literacy"]
+      };
+      
+      const allowedTypes = collectionTypeMapping[filters.collection];
+      if (allowedTypes && !allowedTypes.includes(program.type)) {
         return false;
       }
     }

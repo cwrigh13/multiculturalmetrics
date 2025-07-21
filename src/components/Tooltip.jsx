@@ -96,7 +96,7 @@ const Tooltip = ({
             )}
             
             {/* Enhanced Visual Elements */}
-            <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-teal to-opacity-10 rounded-lg pointer-events-none"></div>
+            <div className="absolute inset-0 bg-teal bg-opacity-5 rounded-lg pointer-events-none"></div>
           </div>
           
           {/* Arrow */}

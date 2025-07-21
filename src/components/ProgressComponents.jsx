@@ -6,7 +6,6 @@ const STATUS_COLORS = {
     bg: "bg-lightBlueGreen",
     text: "text-lightBlueGreen",
     border: "border-lightBlueGreen",
-    gradient: "from-lightBlueGreen to-teal",
     light: "bg-lightBlueGreen bg-opacity-10",
     ring: "ring-lightBlueGreen"
   },
@@ -14,7 +13,6 @@ const STATUS_COLORS = {
     bg: "bg-yellow-500",
     text: "text-yellow-600",
     border: "border-yellow-400",
-    gradient: "from-yellow-400 to-yellow-600",
     light: "bg-yellow-50",
     ring: "ring-yellow-400"
   },
@@ -22,7 +20,6 @@ const STATUS_COLORS = {
     bg: "bg-red-500",
     text: "text-red-600",
     border: "border-red-400",
-    gradient: "from-red-400 to-red-600",
     light: "bg-red-50",
     ring: "ring-red-400"
   },
@@ -30,7 +27,6 @@ const STATUS_COLORS = {
     bg: "bg-green-500",
     text: "text-green-600",
     border: "border-green-400",
-    gradient: "from-green-400 to-green-600",
     light: "bg-green-50",
     ring: "ring-green-400"
   }
@@ -71,12 +67,6 @@ export const ProgressBar = ({
           className={`${height} rounded-full relative ${colors.bg} ${animated ? 'transition-all duration-1000 ease-out' : ''}`}
           style={{ width: `${safePercentage}%` }}
         >
-          {/* Gradient Overlay */}
-          <div className={`absolute inset-0 bg-gradient-to-r ${colors.gradient} opacity-80 rounded-full`}></div>
-          
-          {/* Shine Effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white via-transparent to-transparent opacity-20 rounded-full"></div>
-          
           {/* Pulse Animation for Active Progress */}
           {animated && safePercentage > 0 && (
             <div className={`absolute inset-0 ${colors.bg} rounded-full animate-pulse opacity-30`}></div>
@@ -198,9 +188,6 @@ export const MultiProgressBar = ({
               className={`${colors.bg} relative ${animated ? 'transition-all duration-1000 ease-out' : ''} ${index === 0 ? 'rounded-l-full' : ''} ${index === segments.length - 1 ? 'rounded-r-full' : ''}`}
               style={{ width: `${percentage}%` }}
             >
-              {/* Gradient Overlay */}
-              <div className={`absolute inset-0 bg-gradient-to-r ${colors.gradient} opacity-80 ${index === 0 ? 'rounded-l-full' : ''} ${index === segments.length - 1 ? 'rounded-r-full' : ''}`}></div>
-              
               {/* Label inside segment if wide enough */}
               {percentage > 15 && showLabels && (
                 <div className="absolute inset-0 flex items-center justify-center">

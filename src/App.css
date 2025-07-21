@@ -1,13 +1,13 @@
 /* Main Application Styles */
 .App {
   min-height: 100vh;
-  background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+  background: #fafafa;
   font-family: 'Work Sans', sans-serif;
 }
 
 /* Header styling */
 .app-header {
-  background: linear-gradient(135deg, var(--color-dark-teal) 0%, var(--color-teal) 100%);
+  background: var(--color-dark-teal);
   color: white;
   padding: var(--spacing-xl) var(--spacing-lg);
   margin-bottom: var(--spacing-2xl);
@@ -121,7 +121,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--color-light-cyan), var(--color-light-blue-green));
+  background: var(--color-light-blue-green);
 }
 
 .metric-card:hover {
@@ -182,13 +182,13 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--color-light-blue-green), var(--color-teal));
+  background: var(--color-light-blue-green);
   color: white;
   box-shadow: var(--shadow-sm);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: linear-gradient(135deg, var(--color-teal), var(--color-dark-teal));
+  background: var(--color-teal);
   box-shadow: var(--shadow-md);
   transform: translateY(-1px);
 }
@@ -299,26 +299,24 @@
 }
 
 .progress-on-track {
-  background: linear-gradient(90deg, #10b981, #059669);
+  background: #10b981;
 }
 
 .progress-needs-attention {
-  background: linear-gradient(90deg, #f59e0b, #d97706);
+  background: #f59e0b;
 }
 
 .progress-off-track {
-  background: linear-gradient(90deg, #ef4444, #dc2626);
+  background: #ef4444;
 }
 
 .progress-excellent {
-  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  background: #3b82f6;
 }
 
 /* Loading states */
 .loading-skeleton {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: loading 1.5s infinite;
+  background: #f0f0f0;
   border-radius: var(--radius-md);
 }
 

@@ -1,26 +1,38 @@
 import React from 'react';
+import Tooltip from './Tooltip';
 
 const CollectionSummaries = ({ stats, isLoading = false }) => {
   
-  const StatCard = ({ title, value, subtitle, icon, isPercentage = false }) => {
+  const StatCard = ({ title, value, subtitle, icon, isPercentage = false, tooltipContent = null }) => {
     const displayValue = isLoading ? '...' : (value || 0);
     const formattedValue = isPercentage ? `${displayValue}%` : displayValue.toLocaleString();
     
+    const QuestionMarkIcon = () => (
+      <svg className="w-4 h-4 text-green-800 opacity-60" fill="currentColor" viewBox="0 0 20 20">
+        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+      </svg>
+    );
+    
     return (
-      <div className="bg-lightCyan rounded-lg p-6 text-center shadow-sm border border-lightBlueGreen hover:shadow-md transition-shadow duration-200">
-        {/* Icon */}
-        {icon && (
-          <div className="flex justify-center mb-3">
-            <div className="w-8 h-8 bg-teal rounded-full flex items-center justify-center">
-              {icon}
-            </div>
-          </div>
-        )}
-        
+      <div className="bg-white rounded-lg p-6 text-center shadow-sm border border-black hover:bg-veryLightCyan hover:shadow-md transition-all duration-200">
         {/* Title */}
-        <h4 className="text-sm font-semibold text-teal mb-2 uppercase tracking-wide">
-          {title}
-        </h4>
+        <div className="flex items-center justify-center mb-2">
+          <h4 className="text-sm font-semibold text-green-800 uppercase tracking-wide">
+            {title}
+          </h4>
+          {tooltipContent ? (
+            <Tooltip 
+              title="Turnover Rate"
+              content={tooltipContent}
+              position="top"
+              size="md"
+            >
+              <QuestionMarkIcon />
+            </Tooltip>
+          ) : (
+            <QuestionMarkIcon />
+          )}
+        </div>
         
         {/* Value */}
         <div className="mb-2">
@@ -37,7 +49,7 @@ const CollectionSummaries = ({ stats, isLoading = false }) => {
         
         {/* Subtitle */}
         {subtitle && (
-          <p className="text-xs text-teal opacity-75">
+          <p className="text-xs text-green-800 opacity-75">
             {subtitle}
           </p>
         )}
@@ -75,38 +87,34 @@ const CollectionSummaries = ({ stats, isLoading = false }) => {
       {/* Summary Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         
-        {/* Total Multilingual Collection Items */}
+        {/* No. of loans */}
         <StatCard
-          title="Total Multilingual Items"
-          value={stats.totalMultilingualItems || 0}
-          subtitle="LOTE materials in collection"
-          icon={<BooksIcon />}
+          title="No. of loans"
+          value={stats.totalLoans || 0}
+          subtitle="Total loans this period"
         />
         
-        {/* Languages Represented */}
+        {/* Collection Size */}
         <StatCard
-          title="Languages Represented"
-          value={stats.languagesRepresented || 0}
-          subtitle="Different languages available"
-          icon={<LanguagesIcon />}
+          title="Collection Size"
+          value={stats.totalItems || 0}
+          subtitle="Items in collection"
         />
         
-        {/* Collection Growth Rate */}
+        {/* Turnover rate */}
         <StatCard
-          title="Collection Growth Rate"
-          value={stats.collectionGrowthRate || 0}
-          subtitle="New items added this period"
-          icon={<GrowthIcon />}
+          title="Turnover rate"
+          value={stats.turnoverRate || 0}
+          subtitle="Loans per item"
           isPercentage={true}
+                      tooltipContent="How many times on average an item in a collection circulates in a year. A higher turnover rate suggests a well-used collection."
         />
         
-        {/* Collection Utilization Rate */}
+        {/* Most popular format */}
         <StatCard
-          title="Collection Utilization Rate"
-          value={stats.collectionUtilizationRate || 0}
-          subtitle="Items borrowed vs available"
-          icon={<UtilizationIcon />}
-          isPercentage={true}
+          title="Most popular format"
+          value={stats.mostPopularFormat || "Books"}
+          subtitle="Highest circulation format"
         />
         
       </div>

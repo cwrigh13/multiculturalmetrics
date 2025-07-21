@@ -31,8 +31,6 @@ const ProgramCharts = ({ attendanceByType, attendanceByCommunity, isLoading = fa
                 className="h-full bg-teal rounded-full transition-all duration-1000 ease-out relative"
                 style={{ width: `${percentage}%` }}
               >
-                {/* Subtle gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white to-transparent opacity-20 rounded-full"></div>
               </div>
             )}
             

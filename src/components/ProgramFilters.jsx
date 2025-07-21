@@ -15,13 +15,22 @@ const ProgramFilters = ({
     <button
       onClick={onClick}
       disabled={disabled || isLoading}
-      className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 border-2 ${
+      className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 ${
         isActive
-          ? 'bg-teal text-white border-teal shadow-md'
+          ? 'bg-teal text-white shadow-md'
           : disabled || isLoading
-          ? 'bg-gray-100 text-gray-400 cursor-not-allowed border-gray-200'
-          : 'bg-white text-green-800 border-green-800 hover:bg-veryLightCyan hover:border-teal hover:shadow-sm'
+          ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+          : 'bg-white text-green-800 hover:bg-veryLightCyan hover:shadow-sm'
       }`}
+      style={{
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        borderColor: isActive 
+          ? '#0d9488' // teal
+          : disabled || isLoading
+          ? '#d1d5db' // gray-300
+          : '#000000' // black
+      }}
     >
       {children}
     </button>
@@ -29,6 +38,20 @@ const ProgramFilters = ({
 
   // Check if Key Metrics section is selected
   const isKeyMetricsSelected = filters.section === "key-metrics";
+
+  // Collection types for the new Collection section
+  const collectionTypes = [
+    "All",
+    "Adult Fiction",
+    "Adult Non Fiction", 
+    "Adult Serials",
+    "DVD",
+    "Junior Fiction",
+    "Junior Non Fiction",
+    "Picture Book",
+    "Junior DVD",
+    "eResources"
+  ];
 
   return (
     <>
@@ -90,6 +113,26 @@ const ProgramFilters = ({
               * South Hurstville and Oatley programs not available for Chinese language
             </p>
           )}
+        </>
+      )}
+
+      {/* Collection Filter - Only show when Key Metrics is selected */}
+      {isKeyMetricsSelected && (
+        <>
+          <h4 className="text-sm font-semibold text-darkTeal mb-3 tracking-wide uppercase text-center">
+            Collection
+          </h4>
+          <div className="flex flex-wrap gap-2 mb-6 justify-center">
+            {collectionTypes.map((collectionType) => (
+              <FilterButton
+                key={collectionType}
+                isActive={filters.collection === collectionType}
+                onClick={() => onFilterChange('collection', collectionType)}
+              >
+                {collectionType}
+              </FilterButton>
+            ))}
+          </div>
         </>
       )}
 

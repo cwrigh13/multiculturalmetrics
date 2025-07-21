@@ -30,7 +30,8 @@ function App() {
     community: "All",
     suburb: "All",
     timePeriod: "ytd",
-    section: "All"
+    section: "All",
+    collection: "All"
   });
 
   // === FILTERED DATA STATE MANAGEMENT ===
@@ -79,7 +80,8 @@ function App() {
       community: "All",
       suburb: "All", 
       timePeriod: "ytd",
-      section: "All"
+      section: "All",
+      collection: "All"
     });
   };
 
@@ -176,7 +178,7 @@ function App() {
   console.log('Rendering main dashboard...'); // Debug log
 
   return (
-    <div className="App min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 font-work-sans">
+    <div className="App min-h-screen bg-gray-50 font-work-sans">
       {/* Application Header */}
       <header className="app-header">
         <div className="max-w-7xl mx-auto">
@@ -209,9 +211,6 @@ function App() {
         {shouldShowSection("key-metrics") && (
           <section className="dashboard-section animate-fade-in">
             <h2 className="section-title">
-              <svg className="w-4 h-4 inline-block mr-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
-              </svg>
               Collection Performance Summary
             </h2>
             <CollectionSummaries 
@@ -247,7 +246,8 @@ function App() {
               SLNSW Multicultural Benchmarks
             </h2>
             <SLNSWBenchmarks 
-              slnswBenchmarks={slnswBenchmarks}
+              quantitativeBenchmarks={slnswBenchmarks.quantitative}
+              qualitativeBenchmarks={slnswBenchmarks.qualitative}
               benchmarkHealth={benchmarkHealth}
             />
           </section>

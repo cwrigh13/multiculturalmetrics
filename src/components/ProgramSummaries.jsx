@@ -7,18 +7,9 @@ const ProgramSummaries = ({ stats, isLoading = false }) => {
     const formattedValue = isPercentage ? `${displayValue}%` : displayValue.toLocaleString();
     
     return (
-      <div className="bg-lightCyan rounded-lg p-6 text-center shadow-sm border border-lightBlueGreen hover:shadow-md transition-shadow duration-200">
-        {/* Icon */}
-        {icon && (
-          <div className="flex justify-center mb-3">
-            <div className="w-8 h-8 bg-teal rounded-full flex items-center justify-center">
-              {icon}
-            </div>
-          </div>
-        )}
-        
+      <div className="bg-white rounded-lg p-6 text-center shadow-sm border border-black hover:bg-veryLightCyan hover:shadow-md transition-all duration-200">
         {/* Title */}
-        <h4 className="text-sm font-semibold text-teal mb-2 uppercase tracking-wide">
+        <h4 className="text-sm font-semibold text-green-800 mb-2 uppercase tracking-wide">
           {title}
         </h4>
         
@@ -37,7 +28,7 @@ const ProgramSummaries = ({ stats, isLoading = false }) => {
         
         {/* Subtitle */}
         {subtitle && (
-          <p className="text-xs text-teal opacity-75">
+          <p className="text-xs text-green-800 opacity-75">
             {subtitle}
           </p>
         )}
@@ -80,7 +71,6 @@ const ProgramSummaries = ({ stats, isLoading = false }) => {
           title="Total CALD Program Attendees"
           value={stats.totalCALDAttendees}
           subtitle="Across all programs"
-          icon={<AttendeeIcon />}
         />
         
         {/* New CALD Members */}
@@ -91,7 +81,6 @@ const ProgramSummaries = ({ stats, isLoading = false }) => {
             `${Math.round((stats.newCALDMembers / stats.totalCALDAttendees) * 100)}% conversion rate` : 
             'Library memberships'
           }
-          icon={<MembersIcon />}
         />
         
         {/* Multilingual Collection Loans */}
@@ -99,7 +88,6 @@ const ProgramSummaries = ({ stats, isLoading = false }) => {
           title="Multilingual Collection Loans"
           value={stats.multilingualCollectionLoans}
           subtitle="LOTE materials borrowed"
-          icon={<BooksIcon />}
         />
         
         {/* Staff Cultural Training Completion */}
@@ -107,7 +95,6 @@ const ProgramSummaries = ({ stats, isLoading = false }) => {
           title="Staff Cultural Training Completion"
           value={stats.staffCulturalTrainingCompletion}
           subtitle="All staff completed"
-          icon={<TrainingIcon />}
           isPercentage={true}
         />
         
