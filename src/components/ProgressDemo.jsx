@@ -48,7 +48,7 @@ const ProgressDemo = () => {
             <ProgressBar 
               percentage={95}
               status="Excellent"
-              label="ESL Collection Provision"
+              label="Planning for library services relevant to CALD clients"
               height="h-4"
               animated={true}
             />

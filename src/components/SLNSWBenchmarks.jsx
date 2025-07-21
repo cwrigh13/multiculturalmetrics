@@ -66,7 +66,7 @@ const SLNSWBenchmarks = ({ quantitativeBenchmarks, qualitativeBenchmarks, benchm
             <StatusIcon status={benchmark.status} size="w-5 h-5" />
             <div className="flex items-center space-x-2">
               <div>
-                <h4 className="text-xl font-bold text-darkTeal">ESL Collection Provision</h4>
+                <h4 className="text-xl font-bold text-darkTeal">Planning for library services relevant to CALD clients</h4>
                 <p className="text-sm text-teal">{benchmark.description}</p>
               </div>
               <HelpTooltip 
@@ -375,7 +375,7 @@ const SLNSWBenchmarks = ({ quantitativeBenchmarks, qualitativeBenchmarks, benchm
             <StatusIcon status={benchmark.status} size="w-5 h-5" />
             <div className="flex items-center space-x-2">
               <div>
-                <h4 className="text-xl font-bold text-darkTeal">Specialist Librarian Staffing</h4>
+                <h4 className="text-xl font-bold text-darkTeal">Organisational capacity to develop and deliver multicultural services/collections</h4>
                 <p className="text-sm text-teal">{benchmark.description}</p>
               </div>
               <HelpTooltip 

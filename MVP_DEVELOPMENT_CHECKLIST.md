@@ -48,10 +48,10 @@ This checklist contains all tasks required to build the Multicultural Metrics Da
 ## **Phase 4: SLNSW Benchmarks**
 
 ### Quantitative Benchmarks
-- [ ] **ESL Collection**: Create ESL Collection Provision display with actual vs target values, progress bars, and status indicators
+- [ ] **ESL Collection**: Create Planning for library services relevant to CALD clients display with actual vs target values, progress bars, and status indicators
 - [ ] **LOTE Collection**: Implement LOTE Collection Provision displays with main benchmark and sub-items
 - [ ] **LOTE Sub-items**: Build LOTE Collection sub-items (Minimum Items, Proportion for Large LGAs, Existence for Significant Groups) with tooltips and success indicators
-- [ ] **Specialist Staffing**: Add Specialist Librarian Staffing benchmark with progress bars and actual vs target displays
+- [ ] **Specialist Staffing**: Add Organisational capacity to develop and deliver multicultural services/collections benchmark with progress bars and actual vs target displays
 - [ ] **Research Frequency**: Add Formal Audience Research Frequency benchmark with progress bars and actual vs target displays
 - [ ] **Progress Indicators**: Create reusable progress bars and gauges showing benchmark progress with color-coded status (On Track/Needs Attention/Off Track)
 - [ ] **Tooltips**: Add hover tooltips explaining minimum items, LGA proportions, and significant groups requirements

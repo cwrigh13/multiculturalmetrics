@@ -91,9 +91,6 @@ const BenchmarkHealthSummary = ({
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-3">
-          <div className={`p-3 ${styling.badgeColor} rounded-full`}>
-            {getHealthIcon()}
-          </div>
           <div className="flex items-center space-x-2">
             <div>
               <h3 className={`text-2xl font-bold ${styling.textColor}`}>
@@ -186,44 +183,9 @@ const BenchmarkHealthSummary = ({
         </div>
       </div>
 
-      {/* Full-Width Progress Bar */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between mb-3">
-          <h4 className={`text-lg font-semibold ${styling.textColor}`}>
-            Overall Benchmark Compliance
-          </h4>
-          <span className={`text-sm font-bold ${styling.textColor}`}>
-            {onTrackCount}/{totalCount} Benchmarks On Track
-          </span>
-        </div>
-        
-        {/* Enhanced Progress Bar */}
-        <ProgressBar 
-          percentage={percentage}
-          status={styling.progressStatus}
-          height="h-8"
-          showLabel={true}
-          animated={true}
-          className="mb-3"
-        />
-        
-        {/* Progress Bar Legend */}
-        <div className="flex justify-between items-center text-xs text-teal">
-          <span>0% - Critical</span>
-          <span>60% - Needs Attention</span>
-          <span>75% - Good</span>
-          <span>90% - Excellent</span>
-        </div>
-      </div>
-
       {/* Health Status Message */}
       <div className="bg-white rounded-lg p-6 border border-lightBlueGreen">
         <div className="flex items-start space-x-4">
-          <div className={`w-10 h-10 ${styling.badgeColor} rounded-full flex items-center justify-center flex-shrink-0`}>
-            <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-            </svg>
-          </div>
           <div className="flex-1">
             <h5 className={`text-lg font-semibold ${styling.textColor} mb-2`}>
               Assessment Summary
@@ -268,69 +230,7 @@ const BenchmarkHealthSummary = ({
         </div>
       </div>
 
-      {/* Performance Breakdown by Category */}
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-        
-        {/* Quantitative Benchmarks Summary */}
-        <div className="bg-white rounded-lg p-4 border border-lightBlueGreen">
-          <h6 className="font-semibold text-darkTeal mb-3 flex items-center">
-            <svg className="w-5 h-5 mr-2 text-lightBlueGreen" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
-            </svg>
-            Quantitative Standards
-          </h6>
-          <div className="space-y-2">
-            <div className="flex justify-between items-center text-sm">
-              <span className="text-darkTeal">On Track:</span>
-              <span className="font-bold text-lightBlueGreen">
-                {quantitativeBenchmarks.filter(b => b.status === "On Track").length}
-              </span>
-            </div>
-            <div className="flex justify-between items-center text-sm">
-              <span className="text-darkTeal">Need Attention:</span>
-              <span className="font-bold text-yellow-600">
-                {quantitativeBenchmarks.filter(b => b.status === "Needs Attention").length}
-              </span>
-            </div>
-            <div className="flex justify-between items-center text-sm">
-              <span className="text-darkTeal">Off Track:</span>
-              <span className="font-bold text-red-600">
-                {quantitativeBenchmarks.filter(b => b.status === "Off Track").length}
-              </span>
-            </div>
-          </div>
-        </div>
 
-        {/* Qualitative Benchmarks Summary */}
-        <div className="bg-white rounded-lg p-4 border border-lightBlueGreen">
-          <h6 className="font-semibold text-darkTeal mb-3 flex items-center">
-            <svg className="w-5 h-5 mr-2 text-lightBlueGreen" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V8zm0 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2z" clipRule="evenodd" />
-            </svg>
-            Qualitative Standards
-          </h6>
-          <div className="space-y-2">
-            <div className="flex justify-between items-center text-sm">
-              <span className="text-darkTeal">On Track:</span>
-              <span className="font-bold text-lightBlueGreen">
-                {qualitativeBenchmarks.filter(b => b.status === "On Track").length}
-              </span>
-            </div>
-            <div className="flex justify-between items-center text-sm">
-              <span className="text-darkTeal">Need Attention:</span>
-              <span className="font-bold text-yellow-600">
-                {qualitativeBenchmarks.filter(b => b.status === "Needs Attention").length}
-              </span>
-            </div>
-            <div className="flex justify-between items-center text-sm">
-              <span className="text-darkTeal">Off Track:</span>
-              <span className="font-bold text-red-600">
-                {qualitativeBenchmarks.filter(b => b.status === "Off Track").length}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

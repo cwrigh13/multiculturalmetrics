@@ -279,7 +279,7 @@ export const slnswBenchmarks = {
   quantitative: [
     {
       id: "esl-collection",
-      category: "ESL Collection Provision",
+      category: "Planning for library services relevant to CALD clients",
       description: "Regular ESL classes or conversation groups available",
       target: "Monthly programs",
       actual: "Weekly programs",
@@ -325,7 +325,7 @@ export const slnswBenchmarks = {
     },
     {
       id: "specialist-staffing",
-      category: "Specialist Librarian Staffing",
+      category: "Organisational capacity to develop and deliver multicultural services/collections",
       description: "Staff with multicultural services expertise",
       target: "1 FTE specialist",
       actual: "0.6 FTE",

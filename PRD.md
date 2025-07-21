@@ -103,8 +103,8 @@ Background: colors.lightCyan. Value text: colors.teal.
 **Quantitative Benchmarks Sub-section:**
 - **Title:** "Quantitative Benchmarks" (H3).
 
-**ESL Collection Provision (Grouped Benchmark):**
-- Main label: "ESL Collection Provision (Collections)".
+**Planning for library services relevant to CALD clients (Grouped Benchmark):**
+- Main label: "Planning for library services relevant to CALD clients (Collections)".
 - Sub-item: "ESL collection established where CALD population >1% LGA population."
 - Displays actual vs. target (e.g., "42% / 1%").
 - Progress bar/gauge.
@@ -127,7 +127,7 @@ Background: colors.lightCyan. Value text: colors.teal.
   - Progress bar/gauge.
   - Tooltip: On hover, displays "A collection should exist for a particular language group where more than 1000 residents speak that language."
 
-**Specialist Librarian Staffing:**
+**Organisational capacity to develop and deliver multicultural services/collections:**
 - Displays actual vs. target (e.g., "0.5 FTE / 2 FTE").
 - Progress bar/gauge.
 
