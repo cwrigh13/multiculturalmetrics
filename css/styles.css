@@ -24,3 +24,151 @@ main > section {
   padding: 1rem;
   border: 1px solid #6b6b6b;
 }
+
+/* ---------- Tokens ---------- */
+
+:root {
+  --colour-text: #1a1a1a;
+  --colour-muted: #4a4a4a;
+  --colour-border: #6b6b6b;
+  --colour-surface: #f3f6f6;
+  --colour-accent: #00727a;  /* bars and focus ring; 5.5:1 against white */
+  --colour-error: #a4141c;
+  --space: 1rem;
+}
+
+/* ---------- Shared ---------- */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--colour-accent);
+  outline-offset: 2px;
+}
+
+/* ---------- Program analytics ---------- */
+
+.module-note {
+  color: var(--colour-muted);
+}
+
+.load-errors {
+  border-left: 4px solid var(--colour-error);
+  padding-left: var(--space);
+}
+
+.load-errors h3 {
+  font-size: 1rem;
+}
+
+.filters fieldset {
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space);
+  border: 1px solid var(--colour-border);
+  padding: var(--space);
+  margin: 0;
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1 1 12rem;
+}
+
+.filter label {
+  font-weight: 600;
+}
+
+.filter select {
+  font: inherit;
+  padding: 0.35rem;
+  width: 100%;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(10rem, 100%), 1fr));
+  gap: var(--space);
+  margin: 0;
+}
+
+.summary-item {
+  background: var(--colour-surface);
+  border: 1px solid var(--colour-border);
+  padding: var(--space);
+}
+
+.summary dt {
+  font-size: 0.9rem;
+}
+
+.summary dd {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+  gap: calc(var(--space) * 2);
+}
+
+.bar-chart {
+  display: block;
+  width: 100%;
+  max-width: 20rem;
+  height: auto;
+  overflow: visible;
+}
+
+.bar-chart .bar {
+  fill: var(--colour-accent);
+}
+
+.bar-chart .bar-label,
+.bar-chart .bar-value {
+  fill: var(--colour-text);
+  font-size: 13px;
+}
+
+.bar-chart .bar-value {
+  font-weight: 700;
+}
+
+.data-table {
+  border-collapse: collapse;
+  margin-top: var(--space);
+  width: 100%;
+  max-width: 28rem;
+}
+
+.data-table caption {
+  text-align: left;
+  font-weight: 600;
+  padding-bottom: 0.25rem;
+}
+
+.data-table th,
+.data-table td {
+  border: 1px solid var(--colour-border);
+  padding: 0.25rem 0.5rem;
+  text-align: left;
+}
+
+.data-table .num {
+  text-align: right;
+}
