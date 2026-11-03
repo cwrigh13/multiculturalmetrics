@@ -2,13 +2,16 @@
 
 import { loadAll } from './load.js';
 import { renderAnalytics, renderAnalyticsFailure } from './analytics.js';
+import { renderBenchmark, renderBenchmarkFailure } from './benchmark.js';
 
+const benchmarkRegion = document.getElementById('benchmark');
 const analyticsRegion = document.getElementById('analytics');
 
 try {
-  // Benchmark rows are also loaded here; the benchmark module will consume them when built.
-  const { programs, errors } = await loadAll();
+  const { programs, benchmarks, errors } = await loadAll();
+  renderBenchmark(benchmarkRegion, benchmarks, errors.filter((e) => e.file === 'benchmarks.csv'));
   renderAnalytics(analyticsRegion, programs, errors.filter((e) => e.file === 'programs.csv'));
 } catch (err) {
+  renderBenchmarkFailure(benchmarkRegion, err.message);
   renderAnalyticsFailure(analyticsRegion, err.message);
 }

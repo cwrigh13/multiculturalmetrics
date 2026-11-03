@@ -34,6 +34,8 @@ main > section {
   --colour-surface: #f3f6f6;
   --colour-accent: #00727a;  /* bars and focus ring; 5.5:1 against white */
   --colour-error: #a4141c;
+  --colour-benchmark: #5a2d82;          /* benchmark module accent; 9.6:1 against white */
+  --colour-benchmark-surface: #f5f1f9;
   --space: 1rem;
 }
 
@@ -171,4 +173,145 @@ main > section {
 
 .data-table .num {
   text-align: right;
+}
+
+/* ---------- Benchmark self-assessment ---------- */
+/* Distinct from analytics: plum accent and tinted panel, no teal. */
+
+#benchmark {
+  min-width: 0;
+  border-left: 6px solid var(--colour-benchmark);
+  background: var(--colour-benchmark-surface);
+}
+
+.benchmark-areas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+  gap: var(--space);
+}
+
+.benchmark-area {
+  min-width: 0;
+  background: #ffffff;
+  border: 1px solid var(--colour-border);
+  padding: var(--space);
+}
+
+.benchmark-area h3 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.benchmark-area h4 {
+  margin-bottom: 0.25rem;
+  font-size: 1rem;
+}
+
+.level-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.level-scale {
+  display: inline-flex;
+  gap: 0.25rem;
+}
+
+.level-step {
+  display: inline-grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  font-size: 0.85rem;
+  border: 2px dashed var(--colour-border);
+  color: var(--colour-muted);
+}
+
+.level-step.is-reached {
+  border: 2px solid var(--colour-benchmark);
+  background: var(--colour-benchmark);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.level-step.is-current {
+  outline: 3px solid var(--colour-text);
+  outline-offset: 2px;
+}
+
+.assessment {
+  margin: 0;
+}
+
+.assessment div {
+  margin-bottom: 0.5rem;
+}
+
+.assessment dt {
+  font-weight: 600;
+}
+
+.assessment dd {
+  margin: 0;
+}
+
+.not-assessed {
+  font-style: italic;
+}
+
+.history-chart {
+  display: block;
+  width: 100%;
+  max-width: 18rem;
+  height: auto;
+}
+
+.history-grid {
+  stroke: #c4c4c4;
+  stroke-dasharray: 3 3;
+}
+
+.history-axis {
+  fill: var(--colour-text);
+  font-size: 12px;
+}
+
+.history-key {
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.history-line {
+  fill: none;
+  stroke: var(--colour-benchmark);
+  stroke-width: 2;
+}
+
+.history-point {
+  fill: var(--colour-benchmark);
+  stroke: #ffffff;
+  stroke-width: 2;
+}
+
+.history-value {
+  fill: var(--colour-text);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.benchmark-area .data-table {
+  font-size: 0.875rem;
+}
+
+.benchmark-area .data-table th,
+.benchmark-area .data-table td {
+  padding: 0.25rem 0.35rem;
 }
