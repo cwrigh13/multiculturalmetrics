@@ -1,0 +1,26 @@
+/* Base stylesheet. Layout only; no theme yet. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 1rem;
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+  color: #1a1a1a;
+  background: #ffffff;
+}
+
+main {
+  display: grid;
+  gap: 1.5rem;
+}
+
+main > section {
+  padding: 1rem;
+  border: 1px solid #6b6b6b;
+}
