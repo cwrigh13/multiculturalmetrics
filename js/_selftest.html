@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Loader self-test (temporary)</title>
+    <link rel="icon" href="data:,">
+    <style>
+      body { font-family: system-ui, sans-serif; line-height: 1.5; margin: 1rem; color: #1a1a1a; background: #fff; }
+      .pass { color: #0a6b2d; font-weight: 700; }
+      .fail { color: #a4141c; font-weight: 700; }
+      pre { white-space: pre-wrap; background: #f3f3f3; padding: 0.5rem; }
+    </style>
+    <script src="../vendor/papaparse.min.js"></script>
+  </head>
+  <body>
+    <h1>Loader self-test (temporary)</h1>
+    <p>Throwaway harness for js/load.js and js/validate.js. Not part of the dashboard. Serve the repo over HTTP and open /js/_selftest.html.</p>
+
+    <h2>Fixture</h2>
+    <pre id="fixture"></pre>
+
+    <h2>Accepted rows</h2>
+    <ul id="accepted"></ul>
+
+    <h2>Rejected rows</h2>
+    <ul id="rejected"></ul>
+
+    <h2>Result</h2>
+    <p id="result">Running…</p>
+
+    <script type="module">
+      import { loadCsv } from './load.js';
+      import { PROGRAMS_SCHEMA } from './validate.js';
+
+      const fixture = [
+        'date,program_name,program_type,target_community,language_used,attendance,new_members,suburb,feedback',
+        '2026-03-05,TEST - good row,Storytime,Cantonese,Cantonese,24,2,Kogarah,',
+        '2026-03-12,TEST - bad attendance,Storytime,Cantonese,Cantonese,abc,1,Kogarah,',
+        '',
+      ].join('\n');
+
+      document.getElementById('fixture').textContent = fixture;
+
+      // Serve the fixture through fetch so the full loader path runs: fetch, PapaParse, validate.
+      const url = URL.createObjectURL(new Blob([fixture], { type: 'text/csv' }));
+      const { valid, errors } = await loadCsv(url, PROGRAMS_SCHEMA);
+      URL.revokeObjectURL(url);
+
+      const add = (id, text) => {
+        const li = document.createElement('li');
+        li.textContent = text;
+        document.getElementById(id).append(li);
+      };
+      valid.forEach((r) => add('accepted', `${r.program_name} (attendance ${r.attendance}, typeof ${typeof r.attendance})`));
+      errors.forEach((e) => add('rejected', e.message));
+
+      const pass =
+        valid.length === 1 &&
+        valid[0].program_name === 'TEST - good row' &&
+        valid[0].attendance === 24 &&
+        errors.length === 1 &&
+        errors[0].line === 3 &&
+        errors[0].field === 'attendance';
+
+      const result = document.getElementById('result');
+      result.textContent = pass
+        ? 'PASS: good row accepted with numeric attendance; bad row rejected with a line-identifying message.'
+        : 'FAIL: see accepted and rejected lists above.';
+      result.className = pass ? 'pass' : 'fail';
+    </script>
+  </body>
+</html>
