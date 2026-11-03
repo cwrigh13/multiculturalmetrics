@@ -84,6 +84,9 @@ This is a named, first-class part of the stack, not an afterthought. It is where
 ```
 /                      site root served by Pages
   index.html
+  CHANGELOG.md         dated record of data updates and feature changes
+  README.md            project overview, local run and validation checklist
+  .gitignore           OS and editor files kept out of version control
   /css                 stylesheets
   /js                  ES modules (load, validate, filter, render)
   /vendor              papaparse.min.js (committed)
