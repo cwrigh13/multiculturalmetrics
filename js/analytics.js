@@ -182,7 +182,7 @@ function renderSummary(dl, s) {
     const dd = el('dd');
     if (value === null) {
       dd.append(
-        el('span', { 'aria-hidden': 'true', text: '-' }),
+        el('span', { 'aria-hidden': 'true', text: '—' }),
         el('span', { class: 'visually-hidden', text: 'Not available: no programs match' }),
       );
     } else {
