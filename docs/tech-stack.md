@@ -87,6 +87,7 @@ This is a named, first-class part of the stack, not an afterthought. It is where
   CHANGELOG.md         dated record of data updates and feature changes
   README.md            project overview, local run and validation checklist
   .gitignore           OS and editor files kept out of version control
+  .nojekyll            empty; tells Pages to serve files as-is, no Jekyll build
   /css                 stylesheets
   /js                  ES modules (load, validate, filter, render)
   /vendor              papaparse.min.js (committed)
