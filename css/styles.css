@@ -32,10 +32,11 @@ main > section {
   --colour-muted: #4a4a4a;
   --colour-border: #6b6b6b;
   --colour-surface: #f3f6f6;
-  --colour-accent: #00727a;  /* bars and focus ring; 5.5:1 against white */
+  --colour-accent: #00727a;  /* bars and focus ring; 5.69:1 on white, 5.11:1 on the benchmark panel */
   --colour-error: #a4141c;
-  --colour-benchmark: #5a2d82;          /* benchmark module accent; 9.6:1 against white */
+  --colour-benchmark: #5a2d82;          /* benchmark module accent; 9.85:1 on white */
   --colour-benchmark-surface: #f5f1f9;
+  --colour-gridline: #767676;           /* chart gridlines; 4.54:1 on white (WCAG 1.4.11 needs 3:1) */
   --space: 1rem;
 }
 
@@ -270,7 +271,7 @@ main > section {
 }
 
 .history-grid {
-  stroke: #c4c4c4;
+  stroke: var(--colour-gridline);
   stroke-dasharray: 3 3;
 }
 
