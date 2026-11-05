@@ -10,7 +10,7 @@ export const PROGRAMS_SCHEMA = {
   ],
   required: [
     'date', 'program_name', 'program_type', 'target_community',
-    'attendance', 'new_members', 'suburb',
+    'attendance', 'suburb',
   ],
   enums: {
     program_type: [
@@ -97,7 +97,8 @@ export function validateRow(raw, schema, line) {
       if (schema.required.includes(field)) {
         errors.push(makeError(schema.file, line, field, 'required value is empty.'));
       } else {
-        row[field] = '';
+        // Blank optional value: null for numeric fields (so it is never summed as text), '' otherwise.
+        row[field] = field in schema.integers ? null : '';
       }
       continue;
     }

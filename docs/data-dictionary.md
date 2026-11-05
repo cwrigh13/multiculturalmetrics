@@ -14,7 +14,7 @@ Two CSV files are committed to the repository under `data/` and parsed client-si
 | `target_community` | string (enum) | Mandarin; Cantonese; Nepali; Greek; Arabic; Italian; All CALD communities | Yes |
 | `language_used` | string (enum) | English; Multilingual; Mandarin; Cantonese; Nepali; Greek; Arabic. Leave blank if not recorded; a non-blank value must be one of these. | No (program-level language is not always recorded) |
 | `attendance` | integer | ≥ 0, numeric only | Yes |
-| `new_members` | integer | ≥ 0, numeric only | Yes |
+| `new_members` | integer | ≥ 0, numeric only. Leave blank: program-level new-member data is not recorded. A non-blank value must be a whole number 0 or more. | No |
 | `suburb` | string (enum) | Hurstville; Kogarah; Penshurst; South Hurstville; Oatley | Yes |
 | `feedback` | string | free text, non-identifying only | No |
 
@@ -30,7 +30,7 @@ Two CSV files are committed to the repository under `data/` and parsed client-si
 
 ## Validation and coercion rules (applied on load)
 
-- Numeric fields (`attendance`, `new_members`, `level`): coerce with `Number()`; reject the row and surface an error if the result is `NaN`.
+- Numeric fields (`attendance`, `new_members`, `level`): coerce with `Number()`; reject the row and surface an error if the result is `NaN`. A blank `new_members` is accepted and stored as empty (null), not as 0.
 - `level`: must be an integer 1–5.
 - `date` / `assessment_date`: must parse to a valid date.
 - Enum fields: trim whitespace; reject values outside the allowed set, naming the offending row.
