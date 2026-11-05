@@ -211,9 +211,9 @@ export function renderAnalytics(region, programs, errors = []) {
       list));
   }
 
-  const community = selectControl('filter-community', 'Target community', 'Any community',
+  const community = selectControl('filter-community', 'Target community', 'All programs',
     distinctValues(programs, 'target_community').map((v) => ({ value: v, label: v })));
-  const suburb = selectControl('filter-suburb', 'Suburb', 'Any suburb',
+  const suburb = selectControl('filter-suburb', 'Branch', 'All branches',
     distinctValues(programs, 'suburb').map((v) => ({ value: v, label: v })));
   const period = selectControl('filter-period', 'Time period', 'Any period', periodOptions(programs));
 
