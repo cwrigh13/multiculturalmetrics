@@ -63,7 +63,6 @@ Target: **WCAG 2.1 Level AA**. [TO VERIFY: whether Georges River Council mandate
 - **Local build only.** The checks ran against a local copy of commit `f8dbd59`, not the published site; GitHub Pages was not yet serving from `main` at the time of testing.
 - **Placeholder data.** The live data files hold SAMPLE rows. The multi-row benchmark history and the validation-error display were tested with test data supplied only during the test; real data should be rechecked once loaded.
 - **Not in this note's scope.** 1.4.4 (Resize text) and 1.4.12 (Text spacing) are AA criteria not listed above and were not tested.
-- **Temporary test page excluded.** `js/_selftest.html` is a temporary test harness, not part of the dashboard, and was not tested.
 
 ## Re-test
 
