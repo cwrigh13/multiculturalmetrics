@@ -230,30 +230,117 @@ main > section > h2 {
 
 .charts {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(26rem, 100%), 1fr));
   gap: calc(var(--space) * 2);
 }
 
-.bar-chart {
+/* Bar-in-table: the table is the chart and its text alternative. Bars and sparklines are
+   teal #00727a (5.69:1 on white); the single largest row's bar and total use brand red
+   #cd1719 (5.63:1 on white) as the focal point, and that row is also first by rank. */
+
+.data-table.bar-table {
+  max-width: 36rem;
+  margin-top: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.data-table.bar-table caption {
+  font-weight: 400;
+  font-size: 0.9rem;
+  color: var(--colour-muted);
+}
+
+.bar-table th,
+.bar-table td {
+  vertical-align: middle;
+}
+
+.bar-table .num {
+  white-space: nowrap;
+}
+
+.bar-cell {
+  width: 35%;
+  min-width: 3rem;
+}
+
+.inline-bar-track {
   display: block;
   width: 100%;
-  max-width: 20rem;
+}
+
+.inline-bar {
+  display: block;
+  height: 0.6rem;
+  min-width: 1px;
+  background: var(--colour-accent);
+}
+
+.spark-cell {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.sparkline {
+  display: block;
+  width: 6rem;
   height: auto;
   overflow: visible;
 }
 
-.bar-chart .bar {
+@media (max-width: 30rem) {
+  .bar-table {
+    font-size: 0.875rem;
+  }
+
+  .sparkline {
+    width: 3.5rem;
+  }
+
+  .bar-table th,
+  .bar-table td {
+    padding: 0.25rem 0.35rem;
+  }
+}
+
+.sparkline-line {
+  fill: none;
+  stroke: var(--colour-accent);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.sparkline-end {
   fill: var(--colour-accent);
 }
 
-.bar-chart .bar-label,
-.bar-chart .bar-value {
-  fill: var(--colour-text);
-  font-size: 13px;
+.bar-table .is-focus .inline-bar {
+  background: var(--brand-red);
 }
 
-.bar-chart .bar-value {
+.bar-table .is-focus .num {
+  color: var(--brand-red);
   font-weight: 700;
+}
+
+@media (forced-colors: active) {
+  .inline-bar {
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
+
+  .bar-table .is-focus .inline-bar {
+    background: Highlight;
+  }
+
+  .sparkline-line {
+    stroke: CanvasText;
+  }
+
+  .sparkline-end {
+    fill: CanvasText;
+  }
 }
 
 .data-table {

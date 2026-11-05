@@ -1,6 +1,6 @@
 // Program analytics module: descriptive activity data, not benchmark scores.
-// Renders summary figures, filters and two inline SVG bar charts (each with a data table)
-// into the "Program analytics" region. Takes rows already validated by validate.js.
+// Renders summary figures, filters and two bar-in-table breakdowns (inline bar, monthly
+// sparkline, total) into the "Program analytics" region. Takes rows already validated by validate.js.
 // Computation functions are pure and exported; rendering uses DOM APIs only (no innerHTML).
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
@@ -61,6 +61,34 @@ export function attendanceBy(rows, field) {
     .sort((a, b) => b.value - a.value || a.label.localeCompare(b.label, 'en-AU'));
 }
 
+// Every calendar month (YYYY-MM) from the earliest to the latest month present in the rows.
+export function monthRange(rows) {
+  if (rows.length === 0) return [];
+  const keys = rows.map((r) => r.date.slice(0, 7)).sort();
+  let [year, month] = keys[0].split('-').map(Number);
+  const [endYear, endMonth] = keys[keys.length - 1].split('-').map(Number);
+  const out = [];
+  while (year < endYear || (year === endYear && month <= endMonth)) {
+    out.push(`${year}-${String(month).padStart(2, '0')}`);
+    month += 1;
+    if (month > 12) { month = 1; year += 1; }
+  }
+  return out;
+}
+
+// Monthly attendance per category over monthRange(rows). Months with no programs are 0.
+// Returns { months: ['YYYY-MM', ...], series: Map(category -> [attendance per month]) }.
+export function monthlyAttendanceBy(rows, field) {
+  const months = monthRange(rows);
+  const index = new Map(months.map((m, i) => [m, i]));
+  const series = new Map();
+  for (const r of rows) {
+    if (!series.has(r[field])) series.set(r[field], months.map(() => 0));
+    series.get(r[field])[index.get(r.date.slice(0, 7))] += r.attendance;
+  }
+  return { months, series };
+}
+
 // ---------- Formatting ----------
 
 const integerFormat = new Intl.NumberFormat('en-AU', { maximumFractionDigits: 0 });
@@ -68,6 +96,24 @@ const averageFormat = new Intl.NumberFormat('en-AU', { maximumFractionDigits: 1 
 
 function formatInteger(n) {
   return integerFormat.format(n);
+}
+
+const MONTH_ABBR = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+function monthName(key) {
+  return MONTH_ABBR[Number(key.slice(5, 7)) - 1];
+}
+
+// "Jul to Nov 2025", "Jul 2025 to Jun 2026", or "Mar 2026" for a single month.
+export function monthRangeLabel(months) {
+  if (months.length === 0) return '';
+  const first = months[0];
+  const last = months[months.length - 1];
+  const firstYear = first.slice(0, 4);
+  const lastYear = last.slice(0, 4);
+  if (first === last) return `${monthName(first)} ${firstYear}`;
+  if (firstYear === lastYear) return `${monthName(first)} to ${monthName(last)} ${lastYear}`;
+  return `${monthName(first)} ${firstYear} to ${monthName(last)} ${lastYear}`;
 }
 
 // ---------- DOM helpers ----------
@@ -97,75 +143,95 @@ function selectControl(id, labelText, anyLabel, options) {
   return { wrapper, select };
 }
 
-// ---------- Chart and table ----------
+// ---------- Bar-in-table ----------
+// One table per breakdown is both the chart and its text alternative: category, an inline
+// bar (scaled to the largest row in the current set), a monthly sparkline (scaled to its own
+// row) and the total. The top row's bar and total are accented as the focal point.
 
-// Horizontal bar chart: category label above each bar, numeric value at the bar's end.
-export function barChartSvg({ id, title, desc, data }) {
-  const width = 260;
-  const labelHeight = 16;
-  const barHeight = 18;
-  const rowGap = 10;
-  const valueSpace = 48;
-  const rowHeight = labelHeight + barHeight + rowGap;
-  const height = data.length * rowHeight;
-  const max = Math.max(0, ...data.map((d) => d.value));
-  const maxBar = width - valueSpace;
+// Row geometry for sparklines, in SVG user units.
+const SPARK_WIDTH = 96;
+const SPARK_HEIGHT = 22;
+const SPARK_PAD = 3; // keeps the end dot and stroke inside the box
 
+function sparklineSvg(values, ariaLabel) {
   const svg = svgEl('svg', {
-    class: 'bar-chart',
-    viewBox: `0 0 ${width} ${height}`,
+    class: 'sparkline',
+    viewBox: `0 0 ${SPARK_WIDTH} ${SPARK_HEIGHT}`,
+    width: SPARK_WIDTH,
+    height: SPARK_HEIGHT,
     role: 'img',
-    'aria-labelledby': `${id}-title`,
-    'aria-describedby': `${id}-desc`,
+    'aria-label': ariaLabel,
+    focusable: 'false',
   });
-  svg.append(svgEl('title', { id: `${id}-title` }, title));
-  svg.append(svgEl('desc', { id: `${id}-desc` }, desc));
-
-  data.forEach((d, i) => {
-    const y = i * rowHeight;
-    const barWidth = max === 0 ? 0 : (d.value / max) * maxBar;
-    svg.append(svgEl('text', { x: 0, y: y + 12, class: 'bar-label' }, d.label));
-    svg.append(svgEl('rect', {
-      x: 0, y: y + labelHeight, width: barWidth.toFixed(2), height: barHeight, class: 'bar',
+  const max = Math.max(0, ...values);
+  const innerW = SPARK_WIDTH - SPARK_PAD * 2;
+  const innerH = SPARK_HEIGHT - SPARK_PAD * 2;
+  const points = values.map((v, i) => {
+    const x = values.length === 1 ? SPARK_WIDTH / 2 : SPARK_PAD + (i / (values.length - 1)) * innerW;
+    const y = SPARK_PAD + innerH - (max === 0 ? 0 : (v / max) * innerH);
+    return [x.toFixed(2), y.toFixed(2)];
+  });
+  if (points.length > 1) {
+    svg.append(svgEl('polyline', {
+      class: 'sparkline-line',
+      points: points.map((pt) => pt.join(',')).join(' '),
     }));
-    svg.append(svgEl('text', {
-      x: (barWidth + 6).toFixed(2), y: y + labelHeight + 13, class: 'bar-value',
-    }, formatInteger(d.value)));
-  });
+  }
+  const [lastX, lastY] = points[points.length - 1];
+  svg.append(svgEl('circle', { class: 'sparkline-end', cx: lastX, cy: lastY, r: 2.25 }));
   return svg;
 }
 
-function dataTable({ caption, categoryHeading, data }) {
-  const table = el('table', { class: 'data-table' });
+function barInTable({ heading, categoryHeading, data, monthly }) {
+  const range = monthRangeLabel(monthly.months);
+  const caption = `${heading}, current filters, largest first. Bars are scaled to the largest total. Monthly lines cover ${range}, each scaled to its own row's peak.`;
+  const max = Math.max(0, ...data.map((d) => d.value));
+
+  const table = el('table', { class: 'data-table bar-table' });
   table.append(el('caption', { text: caption }));
   table.append(el('thead', {}, el('tr', {},
     el('th', { scope: 'col', text: categoryHeading }),
-    el('th', { scope: 'col', class: 'num', text: 'Attendance' }))));
+    el('th', { scope: 'col', text: 'Relative size' }),
+    el('th', { scope: 'col', text: 'Monthly' }),
+    el('th', { scope: 'col', class: 'num', text: 'Total' }))));
+
   const tbody = el('tbody');
-  for (const d of data) {
-    tbody.append(el('tr', {},
+  data.forEach((d, i) => {
+    const isFocus = i === 0 && d.value > 0; // exactly one accented row: the largest
+    const share = max === 0 ? 0 : d.value / max;
+    const percent = Math.round(share * 100);
+    const values = monthly.series.get(d.label) || monthly.months.map(() => 0);
+
+    const bar = el('span', { class: 'inline-bar-track', 'aria-hidden': 'true' },
+      el('span', { class: 'inline-bar', style: `width: ${(share * 100).toFixed(2)}%` }));
+    const barText = el('span', {
+      class: 'visually-hidden',
+      text: isFocus ? `${percent}% of largest (largest)` : `${percent}% of largest`,
+    });
+
+    tbody.append(el('tr', isFocus ? { class: 'is-focus' } : {},
       el('th', { scope: 'row', text: d.label }),
+      el('td', { class: 'bar-cell' }, bar, barText),
+      el('td', { class: 'spark-cell' },
+        sparklineSvg(values, `Monthly attendance ${range}: ${values.map(formatInteger).join(', ')}`)),
       el('td', { class: 'num', text: formatInteger(d.value) })));
-  }
+  });
   table.append(tbody);
-  return table;
+  return el('div', { class: 'table-scroll' }, table);
 }
 
-function renderChart(container, { id, heading, categoryHeading, data }) {
+function renderBreakdown(container, { id, heading, categoryHeading, data, monthly }) {
   container.replaceChildren(el('h3', { id: `${id}-heading`, text: heading }));
   if (data.length === 0) {
     container.append(el('p', { text: 'No programs match the current filters.' }));
     return;
   }
-  container.append(
-    barChartSvg({
-      id,
-      title: heading,
-      desc: `Bar chart of total attendance by ${categoryHeading.toLowerCase()} for the current filters. The same figures are in the table below.`,
-      data,
-    }),
-    dataTable({ caption: `${heading} (table)`, categoryHeading, data }),
-  );
+  container.append(barInTable({
+    heading,
+    categoryHeading,
+    data,
+    monthly,
+  }));
 }
 
 // ---------- Summary ----------
@@ -243,13 +309,15 @@ export function renderAnalytics(region, programs, errors = []) {
     });
     status.textContent = `Showing ${filtered.length} of ${programs.length} programs.`;
     renderSummary(summary, summarise(filtered));
-    renderChart(byCommunity, {
+    renderBreakdown(byCommunity, {
       id: 'chart-community', heading: 'Attendance by target community',
       categoryHeading: 'Target community', data: attendanceBy(filtered, 'target_community'),
+      monthly: monthlyAttendanceBy(filtered, 'target_community'),
     });
-    renderChart(byType, {
+    renderBreakdown(byType, {
       id: 'chart-type', heading: 'Attendance by program type',
       categoryHeading: 'Program type', data: attendanceBy(filtered, 'program_type'),
+      monthly: monthlyAttendanceBy(filtered, 'program_type'),
     });
   }
 
