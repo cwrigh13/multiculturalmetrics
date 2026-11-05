@@ -203,6 +203,13 @@ main > section {
   font-size: 1.1rem;
 }
 
+/* Subtitle under each area heading: muted, 8.86:1 on the white card. */
+.area-description {
+  margin-top: -0.5rem;
+  color: var(--colour-muted);
+  font-size: 0.95rem;
+}
+
 .benchmark-area h4 {
   margin-bottom: 0.25rem;
   font-size: 1rem;

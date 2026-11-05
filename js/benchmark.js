@@ -16,6 +16,16 @@ export const AREAS = [
   { key: 'Evaluation', number: 5, name: 'Evaluation' },
 ];
 
+// Plain-English subtitle for each area, keyed by the area value used in benchmarks.csv.
+// Fixed UI text, not data. An area not in this map shows no subtitle.
+export const AREA_DESCRIPTIONS = {
+  'Planning': 'How we plan services using community input and data.',
+  'Organisational capacity': 'Our staff, training, policy and budget for CALD services.',
+  'Quality of service and collections': 'The community-language books and services we actually provide.',
+  'Promotions and delivery': 'How we promote services in community languages.',
+  'Evaluation': 'How we check whether services are working, with community feedback.',
+};
+
 // SLNSW maturity level names.
 export const LEVEL_NAMES = { 1: 'Entry', 2: 'Improving', 3: 'Average', 4: 'Enhanced', 5: 'Exemplary' };
 
@@ -177,6 +187,8 @@ function areaCard(area) {
   const headingId = `benchmark-area-${area.number}`;
   const card = el('article', { class: 'benchmark-area', 'aria-labelledby': headingId });
   card.append(el('h3', { id: headingId, text: `Benchmark ${area.number}: ${area.name}` }));
+  const description = Object.hasOwn(AREA_DESCRIPTIONS, area.key) ? AREA_DESCRIPTIONS[area.key] : null;
+  if (description) card.append(el('p', { class: 'area-description', text: description }));
 
   if (!area.current) {
     card.append(el('p', { class: 'not-assessed', text: 'Not yet assessed. benchmarks.csv has no row for this area.' }));
