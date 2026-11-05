@@ -174,7 +174,6 @@ function renderSummary(dl, s) {
   const items = [
     ['Total programs', formatInteger(s.totalPrograms)],
     ['Total attendance', formatInteger(s.totalAttendance)],
-    ['Total new members', formatInteger(s.totalNewMembers)],
     ['Average attendance per program', s.averageAttendance === null ? null : averageFormat.format(s.averageAttendance)],
   ];
   dl.replaceChildren();

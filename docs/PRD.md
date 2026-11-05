@@ -86,7 +86,7 @@ Metrics 1 and 2 cannot be made fully SMART until baselines are set in Phase 0. M
 **Must**
 - Load program data and benchmark-assessment data from CSV files committed to the repository, parsed client-side with strict type coercion.
 - Display the current self-assessed maturity level (1–5) for each of the five SLNSW benchmark areas.
-- Display program analytics: total programs, total attendance, total new members, for the current filter selection.
+- Display program analytics: total programs, total attendance, average attendance per program, for the current filter selection.
 - Filter analytics by target community, suburb, and time period.
 - Clearly separate the benchmark module from the analytics module in the interface, with the analytics layer labelled as activity data, not benchmark scores.
 - Meet WCAG 2.1 AA [confirm council mandate — s.11].
@@ -136,8 +136,9 @@ Levels: 1 Entry, 2 Improving, 3 Average, 4 Enhanced, 5 Exemplary.
 **Summary values** (recomputed on each filter change, over the filtered set):
 - Total programs = count of rows
 - Total attendance = sum of `attendance`
-- Total new members = sum of `new_members`
 - Average attendance per program = total attendance ÷ total programs (guard against division by zero; display "—" when zero programs)
+
+New members are not shown as a summary figure. The `new_members` column is still collected in `programs.csv` and validated as before, but new-member data is not recorded at program level, so a total would read 0 and mislead.
 
 **Charts.** Attendance by target community and attendance by program type, for the filtered set.
 
@@ -246,7 +247,7 @@ A separate runbook should document this for any successor. **[TO VERIFY: who els
 
 - Benchmark module displays a current level (1–5) and evidence note for all five SLNSW areas, sourced from `benchmarks.csv`.
 - No invented numeric benchmark target appears anywhere in the interface.
-- Analytics module computes the four summary values correctly over any filter combination, with no record made unreachable by the filter taxonomy.
+- Analytics module computes the three summary values correctly over any filter combination, with no record made unreachable by the filter taxonomy.
 - All numeric CSV fields are validated as numbers on load; a non-numeric value produces a clear error, not a corrupted total.
 - Benchmark and analytics modules are visually and labelled as distinct.
 - No API key, secret, personal data, or live integration exists in the deployed site.
