@@ -11,8 +11,8 @@ Two CSV files are committed to the repository under `data/` and parsed client-si
 | `date` | date | `YYYY-MM-DD` | Yes |
 | `program_name` | string | free text | Yes |
 | `program_type` | string (enum) | ESL Class; Cultural Celebration; Storytime; Digital Literacy; Settlement Info; Book Club; Cultural Workshop | Yes |
-| `target_community` | string (enum) | Mandarin; Cantonese; Nepali; Greek; Arabic; All CALD communities | Yes |
-| `language_used` | string (enum) | English; Multilingual; Mandarin; Cantonese; Nepali; Greek; Arabic | Yes |
+| `target_community` | string (enum) | Mandarin; Cantonese; Nepali; Greek; Arabic; Italian; All CALD communities | Yes |
+| `language_used` | string (enum) | English; Multilingual; Mandarin; Cantonese; Nepali; Greek; Arabic. Leave blank if not recorded; a non-blank value must be one of these. | No (program-level language is not always recorded) |
 | `attendance` | integer | ≥ 0, numeric only | Yes |
 | `new_members` | integer | ≥ 0, numeric only | Yes |
 | `suburb` | string (enum) | Hurstville; Kogarah; Penshurst; South Hurstville; Oatley | Yes |
@@ -49,6 +49,7 @@ The confirmed controlled values for `target_community` are:
 | Nepali | |
 | Greek | |
 | Arabic | |
+| Italian | Added for active Italian-community programming (regular Italian Friendship Group sessions). |
 | All CALD communities | Use for programs serving multiple or all CALD groups, not a single language community. |
 
 Each speaker community maps to exactly one label. Mandarin and Cantonese are listed separately as distinct languages; the prototype's overlapping `Chinese` and `Mandarin` labels are removed.

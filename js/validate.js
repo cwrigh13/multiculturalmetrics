@@ -9,7 +9,7 @@ export const PROGRAMS_SCHEMA = {
     'attendance', 'new_members', 'suburb', 'feedback',
   ],
   required: [
-    'date', 'program_name', 'program_type', 'target_community', 'language_used',
+    'date', 'program_name', 'program_type', 'target_community',
     'attendance', 'new_members', 'suburb',
   ],
   enums: {
@@ -18,7 +18,7 @@ export const PROGRAMS_SCHEMA = {
       'Settlement Info', 'Book Club', 'Cultural Workshop',
     ],
     target_community: [
-      'Mandarin', 'Cantonese', 'Nepali', 'Greek', 'Arabic', 'All CALD communities',
+      'Mandarin', 'Cantonese', 'Nepali', 'Greek', 'Arabic', 'Italian', 'All CALD communities',
     ],
     language_used: [
       'English', 'Multilingual', 'Mandarin', 'Cantonese', 'Nepali', 'Greek', 'Arabic',
