@@ -152,8 +152,8 @@ Levels: 1 Entry, 2 Improving, 3 Average, 4 Enhanced, 5 Exemplary.
 | `date` | date | `YYYY-MM-DD` | Yes |
 | `program_name` | string | free text | Yes |
 | `program_type` | string (enum) | e.g. ESL Class, Cultural Celebration, Storytime, Digital Literacy, Settlement Info, Book Club, Cultural Workshop — [confirm final list] | Yes |
-| `target_community` | string (enum) | consolidated taxonomy — [TO CONFIRM, see below] | Yes |
-| `language_used` | string (enum) | e.g. English, Multilingual, plus named languages | Yes |
+| `target_community` | string (enum) | Mandarin; Cantonese; Nepali; Greek; Arabic; Italian; All CALD communities (Italian added for active Italian-community programming; see `data-dictionary.md`) | Yes |
+| `language_used` | string (enum) | English; Multilingual; Mandarin; Cantonese; Nepali; Greek; Arabic. Leave blank if not recorded; a non-blank value must be one of these. | No (program-level language is not always recorded) |
 | `attendance` | integer ≥ 0 | numeric only | Yes |
 | `new_members` | integer ≥ 0 | numeric only | Yes |
 | `suburb` | string (enum) | Hurstville, Kogarah, Penshurst, South Hurstville, Oatley — [confirm] | Yes |
