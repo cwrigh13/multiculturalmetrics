@@ -1,4 +1,44 @@
-/* Base stylesheet. Layout only; no theme yet. */
+/* Georges River Council brand styling.
+   Work Sans for headings and titles only; Arial for all body text.
+   Text never sits on primary teal #00A5A5 (3.03:1 with white); white text
+   only on dark teal #007582 (5.43:1) or dark blue #005174 (8.64:1). */
+
+/* ---------- Tokens ---------- */
+
+:root {
+  /* Brand palette */
+  --brand-teal: #00a5a5;        /* identity colour; large bands only, never behind text */
+  --brand-teal-dark: #007582;   /* white text 5.43:1 */
+  --brand-blue-dark: #005174;   /* white text 8.64:1 */
+  --brand-tint-1: #5dbfc0;      /* tints: dark text only */
+  --brand-tint-2: #9ad3d4;
+  --brand-tint-3: #c8e6e6;
+  --brand-tint-4: #e2f2f2;
+  --brand-red: #cd1719;         /* accent, sparingly */
+  --brand-grey: #878787;        /* accent, sparingly; decorative only (3.59:1) */
+  --brand-white: #ffffff;
+
+  /* Typography */
+  --font-heading: "Work Sans", Arial, sans-serif;
+  --font-body: Arial, sans-serif;
+
+  /* Roles */
+  --colour-text: #1a1a1a;       /* 17.40:1 white, 15.10:1 tint-4, 13.19:1 tint-3 */
+  --colour-muted: #4a4a4a;      /* 8.86:1 white, 7.69:1 tint-4 */
+  --colour-border: #6b6b6b;     /* 5.33:1 white, 4.62:1 tint-4, 4.04:1 tint-3 */
+  --colour-surface: var(--brand-tint-4);
+  --colour-accent: #00727a;     /* chart bars; 5.69:1 on white. Not #00a5a5. */
+  --colour-focus: var(--brand-blue-dark); /* focus ring; 8.64:1 white, 7.50:1 tint-4 */
+  --colour-link: var(--brand-blue-dark);  /* 8.64:1 white, 7.50:1 tint-4 */
+  --colour-error: var(--brand-red);       /* error marker; 5.63:1 white, 4.88:1 tint-4 */
+  --colour-benchmark: var(--brand-teal-dark);   /* benchmark band, level boxes, history line; 5.43:1 white */
+  --colour-benchmark-surface: var(--brand-tint-4);
+  --colour-analytics: var(--brand-blue-dark);   /* analytics band; 8.64:1 white */
+  --colour-gridline: #767676;   /* chart gridlines; 4.54:1 on white (WCAG 1.4.11 needs 3:1) */
+  --space: 1rem;
+}
+
+/* ---------- Base ---------- */
 
 *,
 *::before,
@@ -8,36 +48,97 @@
 
 body {
   margin: 0;
-  padding: 1rem;
-  font-family: system-ui, sans-serif;
+  font-family: var(--font-body);
   line-height: 1.5;
-  color: #1a1a1a;
-  background: #ffffff;
+  color: var(--colour-text);
+  background: var(--brand-white);
 }
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+a {
+  color: var(--colour-link);
+  text-decoration: underline;
+}
+
+a:visited {
+  color: var(--colour-link);
+}
+
+/* ---------- Header ---------- */
+/* Primary teal is the outer band only; all header text sits on dark teal or white. */
+
+.site-header {
+  background: var(--brand-teal);
+  padding: var(--space);
+}
+
+.site-header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: var(--space);
+}
+
+.logo-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-width: 10rem;
+  min-height: 4rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--brand-white);
+  border: 2px dashed var(--brand-grey);
+  color: var(--colour-text);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.title-bar {
+  display: flex;
+  align-items: center;
+  flex: 1 1 18rem;
+  min-width: 0;
+  padding: 0.75rem var(--space);
+  background: var(--brand-teal-dark);
+}
+
+.title-bar h1 {
+  margin: 0;
+  color: var(--brand-white);
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-weight: 700;
+}
+
+/* ---------- Layout ---------- */
 
 main {
   display: grid;
-  gap: 1.5rem;
+  gap: calc(var(--space) * 1.5);
+  padding: var(--space);
 }
 
 main > section {
-  padding: 1rem;
-  border: 1px solid #6b6b6b;
+  min-width: 0;
+  padding: 0 var(--space) var(--space);
+  border: 1px solid var(--colour-border);
 }
 
-/* ---------- Tokens ---------- */
-
-:root {
-  --colour-text: #1a1a1a;
-  --colour-muted: #4a4a4a;
-  --colour-border: #6b6b6b;
-  --colour-surface: #f3f6f6;
-  --colour-accent: #00727a;  /* bars and focus ring; 5.69:1 on white, 5.11:1 on the benchmark panel */
-  --colour-error: #a4141c;
-  --colour-benchmark: #5a2d82;          /* benchmark module accent; 9.85:1 on white */
-  --colour-benchmark-surface: #f5f1f9;
-  --colour-gridline: #767676;           /* chart gridlines; 4.54:1 on white (WCAG 1.4.11 needs 3:1) */
-  --space: 1rem;
+/* Module heading band: full width of the section, white text on a dark brand colour. */
+main > section > h2 {
+  margin: 0 calc(var(--space) * -1) var(--space);
+  padding: 0.75rem var(--space);
+  color: var(--brand-white);
+  font-size: 1.4rem;
 }
 
 /* ---------- Shared ---------- */
@@ -55,11 +156,27 @@ main > section {
 }
 
 :focus-visible {
-  outline: 3px solid var(--colour-accent);
+  outline: 3px solid var(--colour-focus);
   outline-offset: 2px;
 }
 
 /* ---------- Program analytics ---------- */
+/* Dark blue band on a white panel. */
+
+#analytics {
+  border-top: 0;
+  background: var(--brand-white);
+}
+
+#analytics > h2 {
+  background: var(--colour-analytics);
+}
+
+.filters legend {
+  font-family: var(--font-body);
+  font-weight: 700;
+  padding: 0 0.25rem;
+}
 
 .module-note {
   color: var(--colour-muted);
@@ -111,6 +228,7 @@ main > section {
 .summary-item {
   background: var(--colour-surface);
   border: 1px solid var(--colour-border);
+  border-top: 4px solid var(--colour-analytics);
   padding: var(--space);
 }
 
@@ -160,6 +278,7 @@ main > section {
 }
 
 .data-table caption {
+  font-family: var(--font-body);
   text-align: left;
   font-weight: 600;
   padding-bottom: 0.25rem;
@@ -172,17 +291,26 @@ main > section {
   text-align: left;
 }
 
+.data-table thead th {
+  background: var(--brand-tint-3);
+}
+
 .data-table .num {
   text-align: right;
 }
 
 /* ---------- Benchmark self-assessment ---------- */
-/* Distinct from analytics: plum accent and tinted panel, no teal. */
+/* Distinct from analytics: dark teal band and accent on a teal-tint panel. */
 
 #benchmark {
-  min-width: 0;
+  border-top: 0;
   border-left: 6px solid var(--colour-benchmark);
   background: var(--colour-benchmark-surface);
+}
+
+#benchmark > h2 {
+  margin-left: calc(var(--space) * -1 - 6px);
+  background: var(--colour-benchmark);
 }
 
 .benchmark-areas {
@@ -193,7 +321,7 @@ main > section {
 
 .benchmark-area {
   min-width: 0;
-  background: #ffffff;
+  background: var(--brand-white);
   border: 1px solid var(--colour-border);
   padding: var(--space);
 }
@@ -201,6 +329,7 @@ main > section {
 .benchmark-area h3 {
   margin-top: 0;
   font-size: 1.1rem;
+  color: var(--brand-teal-dark);
 }
 
 /* Subtitle under each area heading: muted, 8.86:1 on the white card. */
@@ -241,7 +370,7 @@ main > section {
 .level-step.is-reached {
   border: 2px solid var(--colour-benchmark);
   background: var(--colour-benchmark);
-  color: #ffffff;
+  color: var(--brand-white);
   font-weight: 700;
 }
 
@@ -300,7 +429,7 @@ main > section {
 
 .history-point {
   fill: var(--colour-benchmark);
-  stroke: #ffffff;
+  stroke: var(--brand-white);
   stroke-width: 2;
 }
 
